@@ -31,7 +31,7 @@ no_index:
 provides:
   Parse::CPAN::Perms:
     file: lib/Parse/CPAN/Perms.pm
-    version: 0.001
+    version: 0.002
 requires:
   Carp: 0
   IO::Zlib: 0
@@ -41,4 +41,4 @@ resources:
   bugtracker: https://github.com/thaljef/Parse-CPAN-Perms/issues
   homepage: https://metacpan.org/module/Parse::CPAN::Perms
   repository: git://github.com/thaljef/Parse-CPAN-Perms.git
-version: 0.001
+version: 0.002

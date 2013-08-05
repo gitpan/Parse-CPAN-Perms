@@ -63,7 +63,7 @@
    "provides" : {
       "Parse::CPAN::Perms" : {
          "file" : "lib/Parse/CPAN/Perms.pm",
-         "version" : "0.001"
+         "version" : "0.002"
       }
    },
    "release_status" : "stable",
@@ -78,6 +78,6 @@
          "web" : "https://github.com/thaljef/Parse-CPAN-Perms"
       }
    },
-   "version" : "0.001"
+   "version" : "0.002"
 }
 
