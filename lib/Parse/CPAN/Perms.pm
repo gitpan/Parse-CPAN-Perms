@@ -4,7 +4,7 @@ package Parse::CPAN::Perms;
 
 #-----------------------------------------------------------------------------
 
-our $VERSION = '0.002'; # VERSION
+our $VERSION = '0.003'; # VERSION
 
 #-----------------------------------------------------------------------------
 
@@ -25,6 +25,7 @@ has perms => (
 	is        => 'ro',
 	isa       => 'HashRef',
 	builder   => '_build_perms',
+        lazy      => 1,
 );
 
 #-----------------------------------------------------------------------------
@@ -108,7 +109,7 @@ Parse::CPAN::Perms - Parse 06perms.txt.gz
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 
