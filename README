@@ -2,7 +2,7 @@ NAME
     Parse::CPAN::Perms - Parse 06perms.txt.gz
 
 VERSION
-    version 0.003
+    version 0.004
 
 SYNOPSIS
       # Construction
@@ -34,6 +34,12 @@ CONSTRUCTOR
 
     is_authorized(AUTHOR => 'Package::Name')
         Returns true if the author has permission for the package
+
+    refresh( $force )
+        Causes the permisions hash to be cleared if the "permsfile" has
+        changed since the last time it was read. The permissions hash will
+        be lazily re-read from disk the next time it is needed. If $force is
+        true, then the permissions hash is cleared unconditionally.
 
 SEE ALSO
     CPAN::Repository::Perms serves a similar purpose, but is a much more

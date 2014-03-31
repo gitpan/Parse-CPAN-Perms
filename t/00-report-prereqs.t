@@ -19,6 +19,7 @@ my @modules = qw(
   File::Spec
   File::Spec::Functions
   File::Temp
+  File::stat
   IO::Handle
   IO::Zlib
   IPC::Open3

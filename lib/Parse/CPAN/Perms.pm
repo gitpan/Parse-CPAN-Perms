@@ -4,12 +4,13 @@ package Parse::CPAN::Perms;
 
 #-----------------------------------------------------------------------------
 
-our $VERSION = '0.003'; # VERSION
+our $VERSION = '0.004'; # VERSION
 
 #-----------------------------------------------------------------------------
 
 use Moose;
 use IO::Zlib;
+use File::stat;
 use Carp qw(croak);
 
 #-----------------------------------------------------------------------------
@@ -24,8 +25,16 @@ has permsfile => (
 has perms => (
 	is        => 'ro',
 	isa       => 'HashRef',
-	builder   => '_build_perms',
+        builder   => 'build_perms',
+        clearer   => 'clear_perms',
         lazy      => 1,
+);
+
+
+has mtime => (
+	is        => 'rw',
+	isa       => 'Int',
+        default   => 0,
 );
 
 #-----------------------------------------------------------------------------
@@ -43,15 +52,18 @@ around BUILDARGS => sub {
 
 #-----------------------------------------------------------------------------
 
-sub _build_perms {
-	my ($self) = @_;
+sub build_perms {
+    my ($self) = @_;
 
-	my $permsfile = $self->permsfile;
+    my $permsfile = $self->permsfile;
 
     my $fh = IO::Zlib->new( $permsfile, "rb" );
     croak "Failed to read $permsfile: $!" unless $fh;
     my $perms_data = $self->__read_perms($fh);
     $fh->close;
+
+    my $mtime = (stat $permsfile)->mtime;
+    $self->mtime($mtime);
 
     return $perms_data;
 }
@@ -94,6 +106,19 @@ sub is_authorized {
 }
 
 #-----------------------------------------------------------------------------
+
+sub refresh {
+    my ($self, $force) = @_;
+
+    my $mtime = (stat $self->permsfile)->mtime;
+    return $self unless $mtime > $self->mtime or $force;
+
+    $self->clear_perms;
+
+    return $self;
+}
+
+#-----------------------------------------------------------------------------
 1;
 
 __END__
@@ -109,7 +134,7 @@ Parse::CPAN::Perms - Parse 06perms.txt.gz
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 
@@ -155,6 +180,13 @@ Returns all the permission data as a hash reference
 =item is_authorized(AUTHOR => 'Package::Name')
 
 Returns true if the author has permission for the package
+
+=item refresh( $force )
+
+Causes the permisions hash to be cleared if the C<permsfile> has
+changed since the last time it was read.  The permissions hash will be
+lazily re-read from disk the next time it is needed.  If C<$force> is
+true, then the permissions hash is cleared unconditionally.
 
 =back
 

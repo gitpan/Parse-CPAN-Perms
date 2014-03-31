@@ -17,13 +17,14 @@ my %module_build_args = (
     "Jeffrey Ryan Thalhammer <jeff\@stratopan.com>"
   ],
   "dist_name" => "Parse-CPAN-Perms",
-  "dist_version" => "0.003",
+  "dist_version" => "0.004",
   "license" => "perl",
   "module_name" => "Parse::CPAN::Perms",
   "recommends" => {},
   "recursive_test_files" => 1,
   "requires" => {
     "Carp" => 0,
+    "File::stat" => 0,
     "IO::Zlib" => 0,
     "Moose" => 0,
     "perl" => "5.006"

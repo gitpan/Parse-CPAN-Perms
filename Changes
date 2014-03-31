@@ -1,3 +1,11 @@
+0.004     2014-03-30 21:43:21 America/Los_Angeles
+
+      [ENHANCEMENTS]
+
+      - Added a refresh() method that clears the permission hash
+      if the file on disk is newer.  New permissions will be
+      loaded lazily.
+
 0.003     2013-12-26 23:15:35 America/Los_Angeles
 
       [BUG FIXES]
